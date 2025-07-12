@@ -23,7 +23,7 @@ const dateInput = document.getElementById("date");
 const form = document.getElementById("route-form");
 
 Telegram.WebApp.expand();
-const chatId = Telegram.WebApp.initDataUnsafe.user.id;
+const chatId = Telegram.WebApp.initDataUnsafe?.user?.id || null;
 
 function autocomplete(input, list) {
   input.addEventListener("input", () => {

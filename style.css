@@ -1,24 +1,36 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f8f9fa;
-  padding: 20px;
+  background: #f7f9fc;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
   max-width: 400px;
-  margin: auto;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  margin-bottom: 24px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
 }
 
 input, button {
+  width: 100%;
   padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 16px;
 }
 
@@ -26,28 +38,10 @@ button {
   background-color: #007bff;
   color: white;
   border: none;
+  margin-top: 20px;
   cursor: pointer;
-  border-radius: 6px;
 }
 
 button:hover {
   background-color: #0056b3;
-}
-
-.autocomplete-list {
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-  background: white;
-  position: absolute;
-  z-index: 1000;
-}
-
-.autocomplete-item {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.autocomplete-item:hover {
-  background-color: #f0f0f0;
 }
