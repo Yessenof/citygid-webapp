@@ -37,18 +37,43 @@ fromInput.addEventListener("input", () => updateDatalist(fromInput, fromList));
 toInput.addEventListener("input", () => updateDatalist(toInput, toList));
 
 const form = document.getElementById("route-form");
-form.onsubmit = (e) => {
+
+form.addEventListener("submit", function (e) {
   e.preventDefault();
-  const from = fromInput.value;
-  const to = toInput.value;
-  const date = document.getElementById("date").value;
+
+  const fromCity = fromInput.value.trim();
+  const toCity = toInput.value.trim();
+  const selectedDate = dateInput.value;
+
+  if (!fromCity || !toCity || !selectedDate) {
+    alert("Пожалуйста, заполните все поля");
+    return;
+  }
 
   const payload = {
     chat_id: Telegram.WebApp.initDataUnsafe.user?.id || null,
-    from,
-    to,
-    date
+    from: fromCity,
+    to: toCity,
+    date: selectedDate
   };
+
+  fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(() => {
+      alert("🚀 Запрос отправлен!");
+      setTimeout(() => {
+        Telegram.WebApp.close();
+      }, 500);
+    })
+    .catch(() => {
+      alert("Ошибка при отправке");
+    });
+});
 
   fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
     method: "POST",
