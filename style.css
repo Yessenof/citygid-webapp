@@ -1,37 +1,53 @@
 body {
   font-family: Arial, sans-serif;
-  background: #f7f7f7;
+  background: #f8f9fa;
   padding: 20px;
-}
-
-.container {
-  background: white;
-  border-radius: 10px;
   max-width: 400px;
   margin: auto;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 input, button {
-  width: 100%;
   padding: 10px;
-  margin-top: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
   font-size: 16px;
 }
 
 button {
-  margin-top: 20px;
-  background: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.autocomplete-list {
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  position: absolute;
+  z-index: 1000;
+}
+
+.autocomplete-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.autocomplete-item:hover {
+  background-color: #f0f0f0;
 }
