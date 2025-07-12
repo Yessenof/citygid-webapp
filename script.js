@@ -1,4 +1,7 @@
-const cities = ["Алматы", "Астана", "Шымкент", "Актобе", "Караганда", "Тараз", "Усть-Каменогорск",
+**script.js**
+```javascript
+const cities = [
+  "Алматы", "Астана", "Шымкент", "Актобе", "Караганда", "Тараз", "Усть-Каменогорск",
   "Павлодар", "Костанай", "Кокшетау", "Петропавловск", "Уральск", "Талдыкорган", "Семей",
   "Дубай", "Абу-Даби", "Шарджа", "Рас-эль-Хайма", "Фуджейра",
   "Бишкек", "Ош", "Ташкент", "Самарканд", "Нукус", "Хива", "Душанбе", "Худжанд",
@@ -19,45 +22,34 @@ const cities = ["Алматы", "Астана", "Шымкент", "Актобе"
 
 const fromInput = document.getElementById("from");
 const toInput = document.getElementById("to");
-const dateInput = document.getElementById("date");
-const form = document.getElementById("route-form");
+const fromList = document.getElementById("cityListFrom");
+const toList = document.getElementById("cityListTo");
 
-Telegram.WebApp.expand();
-const chatId = Telegram.WebApp.initDataUnsafe?.user?.id || null;
-
-function autocomplete(input, list) {
-  input.addEventListener("input", () => {
-    const val = input.value.toLowerCase();
-    const datalist = document.getElementById(input.getAttribute("list"));
-    datalist.innerHTML = "";
-
-    const filtered = list.filter(city =>
-      city.toLowerCase().startsWith(val)
-    );
-
-    filtered.forEach(city => {
-      const option = document.createElement("option");
-      option.value = city;
-      datalist.appendChild(option);
-    });
+function updateDatalist(input, listElement) {
+  const value = input.value.toLowerCase();
+  listElement.innerHTML = "";
+  cities.filter(city => city.toLowerCase().includes(value)).forEach(city => {
+    const option = document.createElement("option");
+    option.value = city;
+    listElement.appendChild(option);
   });
 }
 
-autocomplete(fromInput, cities);
-autocomplete(toInput, cities);
+fromInput.addEventListener("input", () => updateDatalist(fromInput, fromList));
+toInput.addEventListener("input", () => updateDatalist(toInput, toList));
 
-form.addEventListener("submit", function (e) {
+const form = document.getElementById("route-form");
+form.onsubmit = (e) => {
   e.preventDefault();
-
-  const fromCity = fromInput.value;
-  const toCity = toInput.value;
-  const selectedDate = dateInput.value;
+  const from = fromInput.value;
+  const to = toInput.value;
+  const date = document.getElementById("date").value;
 
   const payload = {
-    chat_id: chatId,
-    from: fromCity,
-    to: toCity,
-    date: selectedDate,
+    chat_id: Telegram.WebApp.initDataUnsafe.user?.id || null,
+    from,
+    to,
+    date
   };
 
   fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
@@ -66,14 +58,9 @@ form.addEventListener("submit", function (e) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  })
-    .then(() => {
-      setTimeout(() => {
-        Telegram.WebApp.close();
-      }, 500);
-    })
-    .catch((error) => {
-      console.error("Ошибка при отправке запроса:", error);
-      alert("Произошла ошибка. Попробуйте ещё раз.");
-    });
-});
+  });
+
+  alert("🚀 Запрос отправлен! Ждите маршрут...");
+  setTimeout(() => Telegram.WebApp.close(), 700);
+};
+```
