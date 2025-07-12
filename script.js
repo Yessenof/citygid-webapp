@@ -70,13 +70,19 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    alert("🚀 Запрос отправлен! Ждите маршрут...");
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(() => {
+    setTimeout(() => {
+      Telegram.WebApp.close();
+    }, 500); // Ждём 0.5 секунды и закрываем WebApp
+  })
+  .catch((error) => {
+    console.error("Ошибка при отправке запроса:", error);
+    alert("Ошибка при отправке запроса.");
   });
-});
+
