@@ -1,29 +1,33 @@
+**index.html**
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CityGid WebApp</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>✈️ Найти маршрут</h1>
+    <h1>🌍 Найди маршрут</h1>
     <form id="route-form">
       <label for="from">Откуда:</label>
-      <input id="from" name="from" type="text" placeholder="Начните ввод..." list="from-list" autocomplete="off" required />
-      <datalist id="from-list"></datalist>
+      <input type="text" id="from" name="from" list="cityListFrom" autocomplete="off">
+      <datalist id="cityListFrom"></datalist>
 
       <label for="to">Куда:</label>
-      <input id="to" name="to" type="text" placeholder="Начните ввод..." list="to-list" autocomplete="off" required />
-      <datalist id="to-list"></datalist>
+      <input type="text" id="to" name="to" list="cityListTo" autocomplete="off">
+      <datalist id="cityListTo"></datalist>
 
-      <label for="date">Дата:</label>
-      <input id="date" name="date" type="date" required />
+      <label for="date">Дата вылета:</label>
+      <input type="date" id="date" name="date">
 
       <button type="submit">Отправить</button>
     </form>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
+```
