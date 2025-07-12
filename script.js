@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       timestamp: new Date().toISOString()
     };
 
-    fetch("https://hook.eu2.make.com/j6ijm9sab65jlnv1tiwjwnv9mmhndv5p", {
+    fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
