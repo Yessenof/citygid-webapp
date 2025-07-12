@@ -1,46 +1,28 @@
-let cities = [];
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("form");
 
-window.onload = () => {
-  fetch("cities.json")
-    .then(res => res.json())
-    .then(data => {
-      cities = data;
-      fillCityLists(data);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const fromCity = document.getElementById("from").value;
+    const toCity = document.getElementById("to").value;
+    const date = document.getElementById("date").value;
+
+    const payload = {
+      from: fromCity,
+      to: toCity,
+      date: date,
+      timestamp: new Date().toISOString()
+    };
+
+    fetch("https://hook.eu2.make.com/j6ijm9sab65jlnv1tiwjwnv9mmhndv5p", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
     });
-};
 
-function fillCityLists(list) {
-  const fromList = document.getElementById("fromList");
-  const toList = document.getElementById("toList");
-
-  list.forEach(city => {
-    const option1 = document.createElement("option");
-    option1.value = city;
-    fromList.appendChild(option1);
-
-    const option2 = document.createElement("option");
-    option2.value = city;
-    toList.appendChild(option2);
+    alert("🚀 Запрос отправлен! Ждите маршрут...");
   });
-}
-
-function sendData() {
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
-  const date = document.getElementById("date").value;
-
-  if (!from || !to || !date) {
-    alert("Пожалуйста, заполните все поля");
-    return;
-  }
-
-  const data = {
-    from: from,
-    to: to,
-    date: date
-  };
-
-  const json = JSON.stringify(data);
-  Telegram.WebApp.sendData(json);
-  Telegram.WebApp.close();
-}
+});
