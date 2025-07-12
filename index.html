@@ -11,9 +11,19 @@
     <h1>✈️ Найти маршрут</h1>
     <form id="route-form">
       <label for="from">Откуда:</label>
-      <input list="from-cities" id="from" name="from" placeholder="Начните ввод..." required>
-      <datalist id="from-cities"></datalist>
+      <input id="from" name="from" type="text" placeholder="Начните ввод..." list="from-list" autocomplete="off" required />
+      <datalist id="from-list"></datalist>
 
       <label for="to">Куда:</label>
-      <input list="to-cities" id="to" name="to" placeholder="Начните ввод..." required>
-      <datalist id="to-cit
+      <input id="to" name="to" type="text" placeholder="Начните ввод..." list="to-list" autocomplete="off" required />
+      <datalist id="to-list"></datalist>
+
+      <label for="date">Дата:</label>
+      <input id="date" name="date" type="date" required />
+
+      <button type="submit">Отправить</button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
