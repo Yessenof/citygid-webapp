@@ -1,3 +1,10 @@
+const fromInput = document.getElementById("from");
+const toInput = document.getElementById("to");
+const dateInput = document.getElementById("date");
+const suggestionsFrom = document.getElementById("suggestions-from");
+const suggestionsTo = document.getElementById("suggestions-to");
+const form = document.getElementById("route-form");
+
 const cities = [
   "Алматы", "Астана", "Шымкент", "Актобе", "Караганда", "Тараз", "Усть-Каменогорск",
   "Павлодар", "Костанай", "Кокшетау", "Петропавловск", "Уральск", "Талдыкорган", "Семей",
@@ -18,25 +25,31 @@ const cities = [
   "Мальдивы", "Занзибар", "Найроби", "Мехико", "Сеута", "Сан-Паулу", "Нью-Йорк", "Лос-Анджелес"
 ];
 
-const fromInput = document.getElementById("from");
-const toInput = document.getElementById("to");
-const fromList = document.getElementById("cityListFrom");
-const toList = document.getElementById("cityListTo");
+function createSuggestions(inputElement, suggestionsElement) {
+  inputElement.addEventListener("input", function () {
+    const inputValue = inputElement.value.toLowerCase();
+    suggestionsElement.innerHTML = "";
+    if (inputValue.length === 0) return;
 
-function updateDatalist(input, listElement) {
-  const value = input.value.toLowerCase();
-  listElement.innerHTML = "";
-  cities.filter(city => city.toLowerCase().includes(value)).forEach(city => {
-    const option = document.createElement("option");
-    option.value = city;
-    listElement.appendChild(option);
+    const filtered = cities.filter(city =>
+      city.toLowerCase().startsWith(inputValue)
+    );
+
+    filtered.forEach(city => {
+      const div = document.createElement("div");
+      div.textContent = city;
+      div.classList.add("suggestion");
+      div.addEventListener("click", () => {
+        inputElement.value = city;
+        suggestionsElement.innerHTML = "";
+      });
+      suggestionsElement.appendChild(div);
+    });
   });
 }
 
-fromInput.addEventListener("input", () => updateDatalist(fromInput, fromList));
-toInput.addEventListener("input", () => updateDatalist(toInput, toList));
-
-const form = document.getElementById("route-form");
+createSuggestions(fromInput, suggestionsFrom);
+createSuggestions(toInput, suggestionsTo);
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -74,15 +87,3 @@ form.addEventListener("submit", function (e) {
       alert("Ошибка при отправке");
     });
 });
-
-  fetch("https://hook.eu2.make.com/1sh8yxl1jhq2apxyfi3t808wkoyo51y2", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
-
-  alert("🚀 Запрос отправлен! Ждите маршрут...");
-  setTimeout(() => Telegram.WebApp.close(), 700);
-};
