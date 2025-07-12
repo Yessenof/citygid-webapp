@@ -1,6 +1,60 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form");
+  const cities = [
+    "Алматы", "Астана", "Шымкент", "Актобе", "Караганда", "Тараз", "Усть-Каменогорск",
+    "Павлодар", "Костанай", "Кокшетау", "Петропавловск", "Уральск", "Талдыкорган", "Семей",
+    "Дубай", "Абу-Даби", "Шарджа", "Рас-эль-Хайма", "Фуджейра",
+    "Бишкек", "Ош", "Ташкент", "Самарканд", "Нукус", "Хива", "Душанбе", "Худжанд",
+    "Москва", "Санкт-Петербург", "Сочи", "Краснодар", "Екатеринбург", "Новосибирск",
+    "Омск", "Томск", "Челябинск", "Казань", "Уфа", "Пермь", "Волгоград", "Ростов-на-Дону",
+    "Махачкала", "Астрахань", "Иркутск", "Хабаровск", "Владивосток", "Калининград",
+    "Анталья", "Стамбул", "Измир", "Бодрум", "Мармарис", "Вена", "Прага", "Будапешт",
+    "Варшава", "Краков", "Париж", "Берлин", "Мюнхен", "Барселона", "Мадрид", "Милан",
+    "Рим", "Флоренция", "Амстердам", "Брюссель", "Цюрих", "Женева", "Лиссабон",
+    "Копенгаген", "Осло", "Стокгольм", "Хельсинки", "Таллин", "Рига", "Вильнюс",
+    "Бангкок", "Пхукет", "Чиангмай", "Куала-Лумпур", "Джакарта", "Бали", "Хошимин",
+    "Ханой", "Дананг", "Манила", "Сингапур", "Токио", "Осака", "Сеул", "Пусан", "Бусан",
+    "Дели", "Мумбай", "Гоа", "Ченнай", "Коломбо", "Катманду", "Мале",
+    "Тель-Авив", "Каир", "Бейрут", "Амман", "Эр-Рияд", "Доха", "Манама", "Кувейт",
+    "Тегеран", "Маскат", "Баку", "Тбилиси", "Ереван", "Батуми",
+    "Мальдивы", "Занзибар", "Найроби", "Мехико", "Сеута", "Сан-Паулу", "Нью-Йорк", "Лос-Анджелес"
+  ];
 
+  function setupAutocomplete(inputId) {
+    const input = document.getElementById(inputId);
+    const list = document.getElementById(inputId + "-list");
+
+    input.addEventListener("input", function () {
+      const value = this.value.toLowerCase();
+      list.innerHTML = "";
+      if (!value) return;
+
+      const matches = cities.filter(city =>
+        city.toLowerCase().startsWith(value)
+      );
+
+      matches.forEach(city => {
+        const item = document.createElement("div");
+        item.className = "autocomplete-item";
+        item.textContent = city;
+        item.addEventListener("click", function () {
+          input.value = city;
+          list.innerHTML = "";
+        });
+        list.appendChild(item);
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (e.target !== input) {
+        list.innerHTML = "";
+      }
+    });
+  }
+
+  setupAutocomplete("from");
+  setupAutocomplete("to");
+
+  const form = document.querySelector("form");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
